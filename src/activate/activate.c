@@ -47,9 +47,10 @@ static int add_epoll(int epoll_fd, int fd) {
         return 0;
 }
 
-static int open_sockets(int *epoll_fd, bool accept) {
+static size_t open_sockets(int *epoll_fd, bool accept) {
         char **address;
-        int n, fd, r, count = 0;
+        int n, r;
+        size_t fd, count = 0;
 
         n = sd_listen_fds(true);
         if (n < 0)
@@ -476,7 +477,8 @@ static int parse_argv(int argc, char *argv[]) {
 }
 
 int main(int argc, char **argv, char **envp) {
-        int r, n;
+        int r;
+        size_t n;
         int epoll_fd = -1;
 
         log_show_color(true);
@@ -519,7 +521,7 @@ int main(int argc, char **argv, char **envp) {
                         break;
         }
 
-        exec_process(argv[optind], argv + optind, envp, SD_LISTEN_FDS_START, (size_t) n);
+        exec_process(argv[optind], argv + optind, envp, SD_LISTEN_FDS_START, n);
 
         return EXIT_SUCCESS;
 }
