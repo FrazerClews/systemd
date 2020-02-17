@@ -49,8 +49,7 @@ static int add_epoll(int epoll_fd, int fd) {
 
 static size_t open_sockets(int *epoll_fd, bool accept) {
         char **address;
-        int n, r;
-        size_t fd, count = 0;
+        int n, fd, r, count = 0;
 
         n = sd_listen_fds(true);
         if (n < 0)
@@ -119,7 +118,7 @@ static size_t open_sockets(int *epoll_fd, bool accept) {
                         return r;
         }
 
-        return count;
+        return (size_t)count;
 }
 
 static int exec_process(const char *name, char **argv, char **env, int start_fd, size_t n_fds) {
@@ -494,8 +493,6 @@ int main(int argc, char **argv, char **envp) {
                 return EXIT_FAILURE;
 
         n = open_sockets(&epoll_fd, arg_accept);
-        if (n < 0)
-                return EXIT_FAILURE;
         if (n == 0) {
                 log_error("No sockets to listen on specified or passed in.");
                 return EXIT_FAILURE;
