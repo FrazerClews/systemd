@@ -276,7 +276,10 @@ static inline char* str_realloc(char **p) {
         if (!t)
                 return NULL;
 
-        return (*p = t);
+        *p = t;
+        free(t);
+
+        return *p;
 }
 
 char* string_erase(char *x);
