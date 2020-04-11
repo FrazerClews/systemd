@@ -216,7 +216,7 @@ static int list_bus_names(int argc, char **argv, void *userdata) {
         if (r < 0)
                 return log_error_errno(r, "Failed to set empty string: %m");
 
-        r = table_set_sort(table, (size_t) COLUMN_NAME, (size_t) -1);
+        r = table_set_sort(table, (size_t) COLUMN_NAME, SIZE_MAX);
         if (r < 0)
                 return log_error_errno(r, "Failed to set sort column: %m");
 
@@ -230,7 +230,7 @@ static int list_bus_names(int argc, char **argv, void *userdata) {
                                              (size_t) COLUMN_SESSION,
                                              (size_t) COLUMN_DESCRIPTION,
                                              (size_t) COLUMN_MACHINE,
-                                             (size_t) -1);
+                                             SIZE_MAX);
         else
                 r = table_set_display(table, (size_t) COLUMN_NAME,
                                              (size_t) COLUMN_PID,
@@ -240,7 +240,7 @@ static int list_bus_names(int argc, char **argv, void *userdata) {
                                              (size_t) COLUMN_UNIT,
                                              (size_t) COLUMN_SESSION,
                                              (size_t) COLUMN_DESCRIPTION,
-                                             (size_t) -1);
+                                             SIZE_MAX);
 
         if (r < 0)
                 return log_error_errno(r, "Failed to set columns to display: %m");
@@ -1345,7 +1345,7 @@ static int monitor(int argc, char **argv, int (*dump)(sd_bus_message *m, FILE *f
                 if (r > 0)
                         continue;
 
-                r = sd_bus_wait(bus, (uint64_t) -1);
+                r = sd_bus_wait(bus, UINT64_MAX);
                 if (r < 0)
                         return log_error_errno(r, "Failed to wait for bus: %m");
         }

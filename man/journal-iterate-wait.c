@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     }
     if (r == 0) {
       /* Reached the end, let's wait for changes, and try again */
-      r = sd_journal_wait(j, (uint64_t) -1);
+      r = sd_journal_wait(j, UINT64_MAX);
       if (r < 0) {
         fprintf(stderr, "Failed to wait for changes: %s\n", strerror(-r));
         break;

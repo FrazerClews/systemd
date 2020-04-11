@@ -1067,7 +1067,7 @@ static int property_get_current_memory(
                 void *userdata,
                 sd_bus_error *error) {
 
-        uint64_t sz = (uint64_t) -1;
+        uint64_t sz = (uint64_t) -1; // TODO simplify
         Unit *u = userdata;
         int r;
 
@@ -1091,7 +1091,7 @@ static int property_get_current_tasks(
                 void *userdata,
                 sd_bus_error *error) {
 
-        uint64_t cn = (uint64_t) -1;
+        uint64_t cn = (uint64_t) -1; // TODO simplify
         Unit *u = userdata;
         int r;
 

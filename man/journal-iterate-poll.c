@@ -8,7 +8,7 @@ int wait_for_changes(sd_journal *j) {
   struct pollfd pollfd;
 
   sd_journal_get_timeout(j, &t);
-  if (t == (uint64_t) -1)
+  if (t == UINT64_MAX)
     msec = -1;
   else {
     struct timespec ts;
